@@ -140,27 +140,26 @@ for (let i = 0; i < lines.length; i++) {
   }
 }
 
-      let educationList = [];
-const educationKeywords = [
-  "研修",
-  "教育",
-  "未経験歓迎",
-  "OJT",
-  "入社後研修",
-  "社内研修",
-  "マニュアル",
-  "サポート",
-  "フォロー",
-  "メンター"
-];
-
-for (let i = 0; i < educationKeywords.length; i++) {
-  if (text.includes(educationKeywords[i])) {
-    educationList.push(educationKeywords[i]);
-  }
-}
+   let educationLines = [];
+      const educationKeywords = [
+        "研修",
+        "教育",
+        "OJT",
+        "メンター",
+        "サポート",
+        "フォロー",
+        "マニュアル"
+      ];
+  
+    for (let i = 0; i < lines.length; i++) {
+        for (let j = 0; j < educationKeywords.length; j++) {
+          if (lines[i].includes(educationKeywords[j])) {
+            educationLines.push(lines[i].trim());
+            break;
+          }
+        }
+      }
       
-
       let output = "";
 
       if (foundTypes.length > 0) {
@@ -177,13 +176,11 @@ for (let i = 0; i < educationKeywords.length; i++) {
   output += "<div class='result-item'><strong>使用技術・開発環境：</strong>記載が見つかりませんでした</div>";
 }
 
-
-      if (educationList.length > 0) {
-  output += "<div class='result-item'><strong>教育・研修制度：</strong>" + educationList.join(" / ") + " あり</div>";
-} else {
-  output += "<div class='result-item'><strong>教育・研修制度：</strong>記載が見つかりませんでした</div>";
-}
-
+ if (educationLines.length > 0) {
+        output += "<div class='result-item'><strong>教育・研修制度：</strong><br>" + educationLines.join("<br>") + "</div>";
+      } else {
+        output += "<div class='result-item'><strong>教育・研修制度：</strong>記載が見つかりませんでした</div>";
+      }
       result.innerHTML = output;
     });
   </script>
